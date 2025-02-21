@@ -7,7 +7,7 @@
  issue, feel free to let me know!
  
  STEPS:
- 1. Download this ZIP
+ 1. Go to CODE (green button) and install ZIP.
  2. Make a new Godot project.
  3. Import ALL files into the project.
  4. Enjoy.
