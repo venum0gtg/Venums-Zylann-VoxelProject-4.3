@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmilm5eeln76i"]
+
+[sub_resource type="GDScript" id="1"]
+script/source = "extends RigidBody3D
+
+# A variable to store how long the sphere has been in the scene.
+var life_timer = 0;
+# A constant variable to store the maximum length a sphere can be in the scene.
+const LIFE_TIME = 6;
+
+# A constant variable to hold the amount of force the sphere is thrown at when it
+# is created.
+const STARTING_FORCE = 14;
+
+
+func _ready():
+	# Throw the sphere towards its negative Z axis.
+	apply_impulse(Vector3(0,0,0), -global_transform.basis.z.normalized() * STARTING_FORCE);
+
+
+func _physics_process(delta):
+	# Add delta to life_timer.
+	life_timer += delta;
+	
+	# If life_timer is equal or more than LIFE_TIME, then free/destroy the sphere.
+	if (life_timer >= LIFE_TIME):
+		queue_free();
+"
+
+[sub_resource type="SphereMesh" id="2"]
+radial_segments = 32
+rings = 16
+
+[sub_resource type="SphereShape3D" id="4"]
+
+[node name="Rigid_Sphere" type="RigidBody3D"]
+can_sleep = false
+script = SubResource("1")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+mesh = SubResource("2")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("4")
